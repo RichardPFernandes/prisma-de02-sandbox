@@ -44,7 +44,7 @@ for (const cap of caps) {
   }
 }
 const mode = process.argv[2] || 'pr';
-console.log(`mode=${mode} head=${git('rev-parse', 'HEAD').trim()} base=${git('rev-parse', 'HEAD^1').trim()}`);
+console.log(`mode=${mode} head=${git('rev-parse', 'HEAD').trim()} base=${(() => { try { return git('rev-parse', 'HEAD^1').trim(); } catch { return 'none'; } })()}`);
 if (errors.length) {
   if (mode === 'audit') console.log('AUDIT: capability UNKNOWN (estado derivado; operações dependentes bloqueadas)');
   for (const e of errors) console.log('ERRO ' + e);
